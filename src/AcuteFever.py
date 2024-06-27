@@ -136,10 +136,7 @@ class AcuteFever(KnowledgeEngine):
     @Rule(Answer(subject='Rash', text=True))
     def Rash(self):
         self.considerations([
-            'MENINGOCOCCEMIA',
-            'DRUG REACTION',
-            'EXANTHEMA',
-            'SUBACUTE BACTERIAL ENDOCARDITIS'
+            'MENINGOCOCCEMIA', 'DRUG REACTION', 'EXANTHEMA', 'SUBACUTE BACTERIAL ENDOCARDITIS'
         ])
         self.halt()
 
@@ -180,7 +177,6 @@ class AcuteFever(KnowledgeEngine):
 
     @Rule(Answer(subject='Pain Location', text=MATCH.t))
     def pain_location(self, t):
-        ks_list = []
         for item in t:
             if item == "SORE THROAT":
                 self.considerations([
@@ -189,23 +185,28 @@ class AcuteFever(KnowledgeEngine):
             if item == "EARACHE":
                 self.considerations(['OTITIS MEDIA'])
             if item == "CHEST PAIN":
-                cp = ChestPain()
-                cp.reset()
-                ks_list.append(cp)
-                cp.run()
+                self.declare(Fact("CHEST PAIN"))
+
             if item == "HEADACHE":
-                h = Headache()
-                h.reset()
-                ks_list.append(h)
-                h.run()
+                self.declare(Fact("HEADACHE"))
+
             if item == "ABDOMINAL Pain":
-                ap = AbdominalPain()
-                ap.reset()
-                ks_list.append(ap)
-                ap.run()
+                self.declare(Fact("ABDOMINAL Pain"))
 
-        # for item in ks_list:
-        #     if item.running:
-        #         pass
+    @Rule(Fact("CHEST PAIN"))
+    def CHEST_PAIN(self):
+        cp = ChestPain()
+        cp.reset()
+        cp.run()
 
-            self.halt()
+    @Rule(Fact("HEADACHE"))
+    def Headache(self):
+        h = Headache()
+        h.reset()
+        h.run()
+
+    @Rule(Fact("ABDOMINAL Pain"))
+    def ABDOMINAL_Pain(self):
+        ap = AbdominalPain()
+        ap.reset()
+        ap.run()

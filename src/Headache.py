@@ -72,17 +72,17 @@ class Headache(KnowledgeEngine):
             text="Is there a history of drug?"
         )
         yield Question(
-            subject="Alcohol?",
+            subject="Alcohol",
             Type="bool",
             text="Is there a History of Alcohol?"
         )
         yield Question(
-            subject="Caffeine?",
+            subject="Caffeine",
             Type="bool",
             text="Is there a history Caffeine??"
         )
         yield Question(
-            subject="Trauma?",
+            subject="Trauma",
             Type="bool",
             text="Is there a history of Trauma?"
         )

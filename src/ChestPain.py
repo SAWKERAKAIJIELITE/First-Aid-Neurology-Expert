@@ -4,14 +4,16 @@ from schema import Or
 
 class Question(Fact):
     subject = text = Field(str, True)
-    Type = Field(Or('multiple', 'single', 'bool', 'int', 'words'), True)
+    Type = Field(Or(
+        'multiple', 'single', 'bool', 'int', 'float', 'words'
+    ), True)
     valid = Field(Or(list, int))
     certainity_factor = Field(float)
 
 
 class Answer(Fact):
     subject = Field(str, True)
-    text = Field(Or(str, bool, int, list), True)
+    text = Field(Or(str, bool, int, float, list), True)
     certainity_factor = Field(float)
 
 
@@ -59,6 +61,9 @@ class ChestPain(KnowledgeEngine):
 
         if question['Type'] == 'int':
             return int(input())
+        
+        if question['Type'] == 'float':
+            return float(input())
 
         if question['Type'] == 'words':
             return input()
@@ -78,7 +83,7 @@ class ChestPain(KnowledgeEngine):
         )
         yield Question(
             subject="Duration",
-            Type="int",
+            Type="float",
             text="How long minutes does it last?"
         )
         yield Question(
@@ -92,7 +97,7 @@ class ChestPain(KnowledgeEngine):
             text="Does the pain RELIEF BY ANTACID?"
         )
         yield Question(
-            subject="ANTACID",
+            subject="HEMOPTYSIS",
             Type="bool",
             text="Is the pain WITH HEMOPTYSIS?"
         )
