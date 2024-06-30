@@ -53,6 +53,7 @@ class ArterialBloodCauses(KnowledgeEngine):
             return q
 
         if question['Type'] == 'bool':
+            print("Press Enter to choose False or any other key to choose True")
             return bool(input())
 
         if question['Type'] == 'int':
@@ -269,7 +270,6 @@ class ArterialBloodCauses(KnowledgeEngine):
     def gt_ph_hco3_lt_pco2(self, p):
         self.considerations(['Respiratory Alkalosis'])
         self.declare(Fact(Respiratory=True, value=p))
-        # self.halt()
 
     @Rule(Fact(Respiratory=True, value=MATCH.p))
     def acute(self, p):

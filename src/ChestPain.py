@@ -57,6 +57,7 @@ class ChestPain(KnowledgeEngine):
             return q
 
         if question['Type'] == 'bool':
+            print("Press Enter to choose False or any other key to choose True")
             return bool(input())
 
         if question['Type'] == 'int':

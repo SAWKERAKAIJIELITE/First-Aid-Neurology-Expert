@@ -49,6 +49,7 @@ class Hematuria(KnowledgeEngine):
             return q
 
         if question['Type'] == 'bool':
+            print("Press Enter to choose False or any other key to choose True")
             return bool(input())
 
         if question['Type'] == 'int':
@@ -137,6 +138,18 @@ class Hematuria(KnowledgeEngine):
     @Rule(Answer(subject='FLANK MASS', text=True))
     def not_ABDOMINAL_PAIN_not_DYSURIA_FLANK_MASS(self):
         self.declare(Fact(ask="U OR B"))
+
+    @Rule(Answer(subject='U OR B', text="BILATERAL"))
+    def BILATERAL(self):
+        self.considerations(['POLYCYSTIC KIDNEY', 'HYDRONEPHROSIS'])
+        self.halt()
+
+    @Rule(Answer(subject='U OR B', text="UNILATERAL"))
+    def UNILATERAL(self):
+        self.considerations([
+            'HYPERNEPHROMA', 'HYDRONEPHROSIS', 'SOLITARY CYST', 'RENAL VEIN THROMBOSIS'
+        ])
+        self.halt()
 
     @Rule(Answer(subject='FLANK MASS', text=False))
     def not_ABDOMINAL_PAIN_not_DYSURIA_not_FLANK_MASS(self):

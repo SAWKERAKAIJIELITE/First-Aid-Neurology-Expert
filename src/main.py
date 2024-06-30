@@ -44,13 +44,17 @@ class FirstAid(KnowledgeEngine):
                 print(f"    {i}. {item}")
             print("You can select multiple choice seperated by space")
 
-            l = input().split()
-            q = []
-            for item in l:
-                q.append(question['valid'][int(item)-1])
-            return q
+            x = input()
+            if len(x) == 1:
+                return [question['valid'][int(x)-1]]
+            else:
+                q = []
+                for item in x.split():
+                    q.append(question['valid'][int(item)-1])
+                return q
 
         if question['Type'] == 'bool':
+            print("Press Enter to choose False or any other key to choose True")
             return bool(input())
 
         if question['Type'] == 'int':
@@ -131,49 +135,57 @@ class FirstAid(KnowledgeEngine):
 
     @Rule(Answer(subject='Anixety'))
     def ask_about_anixety(self):
+        print("Anixety")
         anixety = Anixety()
         anixety.reset()
         anixety.run()
 
     @Rule(Answer(subject='Abdominal Pain'))
     def ask_about_Abdominal_Pain(self):
+        print("Abdominal Pain")
         abdominal_pain = AbdominalPain()
         abdominal_pain.reset()
         abdominal_pain.run()
 
     @Rule(Answer(subject='Chest Pain'))
     def ask_about_Chest_Pain(self):
+        print("Chest Pain")
         chest_pain = ChestPain()
         chest_pain.reset()
         chest_pain.run()
 
     @Rule(Answer(subject='Headache'))
     def ask_about_Headache(self):
+        print("Headache")
         headache = Headache()
         headache.reset()
         headache.run()
 
     @Rule(Answer(subject='Absent Or Diminished Pulse'))
     def ask_about_extremities(self):
+        print("Absent Or Diminished Pulse")
         pulse = AbsentOrDiminishedPulse()
         pulse.reset()
         pulse.run()
 
     @Rule(Answer(subject='Blindness'))
     def ask_about_blindness(self):
+        print("Blindness")
         blindness = BLINDNESS()
         blindness.reset()
         blindness.run()
 
     @Rule(Answer(subject='Hematuria'))
     def ask_about_hematuria(self):
+        print("Hematuria")
         hematuria = Hematuria()
         hematuria.reset()
         hematuria.run()
         # print(hematuria.get_activations())
 
-    @Rule(Answer(subject='ACUTE FEVER'))
+    @Rule(Answer(subject='Acute Fever'))
     def ask_about_ACUTE_FEVER(self):
+        print("ACUTE FEVER")
         acute_fever = AcuteFever()
         acute_fever.reset()
         acute_fever.run()
@@ -181,12 +193,13 @@ class FirstAid(KnowledgeEngine):
 
     @Rule(Answer(subject='Acid Base Analysis'))
     def ask_about_Acid_Base_Analysis(self):
+        print("Acid Base Analysis")
         acid_base_analysis = AcidBaseAnalysis()
         acid_base_analysis.reset()
         acid_base_analysis.run()
 
 
-watch('AGENDA', 'ACTIVATIONS')
+# watch('AGENDA', 'ACTIVATIONS')
 fa = FirstAid()
 fa.reset()
 fa.run()
